@@ -4699,8 +4699,10 @@ void memtest(size_t megabytes, int passes);
  * argv[0] contains "redis-sentinel". */
 int checkForSentinelMode(int argc, char **argv) {
     int j;
-
+    /* case-1: redis-sentinel /data/redis/conf/sentinel.conf */
     if (strstr(argv[0],"redis-sentinel") != NULL) return 1;
+    
+    /* case-2: redis-server /data/redis/conf/sentinel.conf --sentinel */
     for (j = 1; j < argc; j++)
         if (!strcmp(argv[j],"--sentinel")) return 1;
     return 0;
